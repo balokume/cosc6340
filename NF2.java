@@ -61,9 +61,6 @@ public class NF2 extends NF1{
                 decomposite(props, db);
         }
 
-
-        System.out.println("2nf");
-
         return success;
     }
 

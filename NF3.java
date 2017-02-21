@@ -66,8 +66,6 @@ public class NF3 extends NF2{
             IOutils.outputNF(tableName + "\t\tY\t\t\t");
         }
 
-        System.out.println("3nf");
-
         return success;
     }
 }

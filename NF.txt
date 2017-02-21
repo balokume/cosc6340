@@ -1,0 +1,3 @@
+#Table	3NF	Failed	Reason
+T10		N	2NF		k1->a,k1->c
+T11		N	2NF		k1->c,k2->d

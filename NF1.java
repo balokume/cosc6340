@@ -39,8 +39,6 @@ public class NF1 implements NormalForm{
             IOutils.outputNF(tableName + "\t\tN\t1NF\t\t" + error);
         }
 
-        System.out.println("1nf");
-
         return success;
     }
 

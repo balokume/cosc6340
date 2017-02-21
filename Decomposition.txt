@@ -1,0 +1,14 @@
+#T10 decomposition:
+team01schema.T10_1(k1,k2,b)
+team01schema.T10_2(k1,a)
+team01schema.T10_3(k1,c)
+#Verification:
+T10=join(team01schema.T10_1,team01schema.T10_2,team01schema.T10_3)? YES
+
+#T11 decomposition:
+team01schema.T11_1(k1,k2)
+team01schema.T11_2(k1,c)
+team01schema.T11_3(k2,d)
+#Verification:
+T11=join(team01schema.T11_1,team01schema.T11_2,team01schema.T11_3)? YES
+
