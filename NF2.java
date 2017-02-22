@@ -1,6 +1,4 @@
-/**
- * Created by Yuting on 2/19/2017.
- */
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
@@ -39,11 +37,23 @@ public class NF2 extends NF1{
                                 String X = String.join(",", subKeys);
                                 reasons.add(X + "->" + attr);
 
-                                // record dependency property
-                                Properties dp = new Properties();
-                                dp.put("X", subKeys);
-                                dp.put("Y", new ArrayList<String>(Arrays.asList(attr)));
-                                dependencyProps.add(dp);
+                                // chech if a dependency already exist with the same key
+                                boolean depKeyExist = false;
+                                for(Properties dp : dependencyProps){
+                                    if(((ArrayList<String>)dp.get("X")).equals(subKeys)){
+                                        ((ArrayList<String>)dp.get("Y")).add(attr);
+                                        depKeyExist = true;
+                                        break;
+                                    }
+                                }
+
+                                if(!depKeyExist) {
+                                    // record dependency property
+                                    Properties dp = new Properties();
+                                    dp.put("X", subKeys);
+                                    dp.put("Y", new ArrayList<String>(Arrays.asList(attr)));
+                                    dependencyProps.add(dp);
+                                }
                             }
                         }
 
@@ -51,7 +61,7 @@ public class NF2 extends NF1{
                     }
                 }
             }
-            catch (Exception e){}
+            catch (Exception e){e.printStackTrace();}
         }
         if(!success) {
             String error = String.join(",", reasons);
@@ -82,7 +92,7 @@ public class NF2 extends NF1{
                 ArrayList<String> X = (ArrayList<String>) dp.get("X");
                 ArrayList<String> Y = (ArrayList<String>) dp.get("Y");
 
-                String newTableName = SQLwrapper.PRIVATE_SCHEMA + "." + tableName + "_" + newTableIdx;
+                String newTableName = SQLwrapper.PRIVATE_SCHEMA + tableName + "_" + newTableIdx;
                 db.dropTable(newTableName);
                 String sqlCreateTable = SQLwrapper.decompositeTable(tableName, newTableName, X, Y);
                 db.executeUpdate(sqlCreateTable);
@@ -98,7 +108,7 @@ public class NF2 extends NF1{
             }
 
             // remaining table
-            String remainTableName = SQLwrapper.PRIVATE_SCHEMA + "." + tableName + "_1";
+            String remainTableName = SQLwrapper.PRIVATE_SCHEMA + tableName + "_1";
             ArrayList<String> remainAttrs = (ArrayList<String>)remainingTable.get("allAttrs");
             db.dropTable(remainTableName);
             String sqlCreateRemainTable = SQLwrapper.decompositeTable(tableName, remainTableName, remainAttrs, new ArrayList<String>());

@@ -1,13 +1,10 @@
-/**
- * Created by Yuting on 2/19/2017.
- */
 
 import java.util.ArrayList;
 
 public class SQLwrapper {
 
-    public static final String PUBLIC_SCHEMA = "public";
-    public static final String PRIVATE_SCHEMA = "team01schema";
+    public static final String PUBLIC_SCHEMA = "public.";
+    public static final String PRIVATE_SCHEMA = "team01schema.";
 
     public static String checkTable(String tableName){
 //		String query = "SELECT COUNT(*) FROM " + tableName;

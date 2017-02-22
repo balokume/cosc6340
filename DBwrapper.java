@@ -1,6 +1,3 @@
-/**
- * Created by Yuting on 2/19/2017.
- */
 
 import java.sql.*;
 import java.util.Properties;
@@ -43,7 +40,7 @@ public class DBwrapper {
         String sqlCheckTable = SQLwrapper.checkTable(tableProp.getProperty("tableName"));
 
         try{
-            int count = queryCount(sqlCheckTable);
+            int count = queryCount(sqlCheckTable, false);
             if(count <= 0){
                 IOutils.outputNF(tableProp.getProperty("tableName") + "\t\tN\t1NF\t\tTable not exist");
                 return false;
@@ -52,7 +49,7 @@ public class DBwrapper {
             ArrayList<String> attributes = (ArrayList<String>)tableProp.get("allAttrs");
             for(String attr : attributes){
                 String sqlChechAttr = SQLwrapper.checkAttribute(tableProp.getProperty("tableName"), attr);
-                count = queryCount(sqlChechAttr);
+                count = queryCount(sqlChechAttr, false);
                 if(count <= 0){
                     IOutils.outputNF(tableProp.getProperty("tableName") + "\t\tN\t1NF\t\tAttribute " + attr + " not exist");
                     return false;
@@ -67,7 +64,12 @@ public class DBwrapper {
     }
 
     public int queryCount(String query) throws SQLException{
-        IOutils.outputSQL(query);
+        return queryCount(query, true);
+    }
+
+    public int queryCount(String query, boolean writeToFile) throws SQLException{
+        if(writeToFile)
+            IOutils.outputSQL(query);
 
         int count = 0;
         Connection con = getConnection();
@@ -108,7 +110,7 @@ public class DBwrapper {
 
     public void dropTable(String tableName)throws SQLException{
         String sqlCheckTable = SQLwrapper.checkTable(tableName);
-        int count = queryCount(sqlCheckTable);
+        int count = queryCount(sqlCheckTable, false);
         if(count > 0){
             String sqlDropTable = SQLwrapper.dropTable(tableName);
             executeUpdate(sqlDropTable);
@@ -138,7 +140,7 @@ public class DBwrapper {
 
         //String sqlOriginalCount = SQLwrapper.countDistinct(originalTableName, new ArrayList<String>());
         String sqlOriginalCount = SQLwrapper.checkTable(originalTableName);
-        int originalCount = queryCount(sqlOriginalCount);
+        int originalCount = queryCount(sqlOriginalCount, false);
 
         IOutils.outputDecomposition("#Verification:");
         String output = originalTableName + "=join(" + newTableName;

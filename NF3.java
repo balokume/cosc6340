@@ -1,6 +1,4 @@
-/**
- * Created by Yuting on 2/19/2017.
- */
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Properties;
@@ -40,11 +38,23 @@ public class NF3 extends NF2{
                                 String X = String.join(",", subAttrs);
                                 reasons.add(X + "->" + attr);
 
+                                // chech if a dependency already exist with the same key
+                                boolean depKeyExist = false;
+                                for(Properties dp : dependencyProps){
+                                    if(((ArrayList<String>)dp.get("X")).equals(subAttrs)){
+                                        ((ArrayList<String>)dp.get("Y")).add(attr);
+                                        depKeyExist = true;
+                                        break;
+                                    }
+                                }
+
                                 // record dependency property
-                                Properties dp = new Properties();
-                                dp.put("X", subAttrs);
-                                dp.put("Y", new ArrayList<String>(Arrays.asList(attr)));
-                                dependencyProps.add(dp);
+                                if(!depKeyExist) {
+                                    Properties dp = new Properties();
+                                    dp.put("X", subAttrs);
+                                    dp.put("Y", new ArrayList<String>(Arrays.asList(attr)));
+                                    dependencyProps.add(dp);
+                                }
                             }
                         }
 
@@ -52,7 +62,7 @@ public class NF3 extends NF2{
                     }
                 }
             }
-            catch (Exception e){}
+            catch (Exception e){e.printStackTrace();}
         }
 
         if(!success) {

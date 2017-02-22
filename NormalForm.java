@@ -1,6 +1,4 @@
-/**
- * Created by Yuting on 2/19/2017.
- */
+
 import java.util.Properties;
 
 public interface NormalForm {

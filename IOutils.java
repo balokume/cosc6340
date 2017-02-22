@@ -1,6 +1,4 @@
-/**
- * Created by Yuting on 2/19/2017.
- */
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -52,7 +50,7 @@ public class IOutils {
         ArrayList<String> nonKeyAttrs = new ArrayList<String>();
 
         int idx = tableSchema.indexOf("(");
-        tableProps.put("tableName",tableSchema.substring(0,idx));
+        tableProps.put("tableName", SQLwrapper.PUBLIC_SCHEMA + tableSchema.substring(0,idx));
         String attributes = tableSchema.substring(idx+1,tableSchema.length() - 1);
 
 

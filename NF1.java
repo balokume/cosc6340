@@ -1,6 +1,3 @@
-/**
- * Created by Yuting on 2/19/2017.
- */
 
 import java.util.Properties;
 import java.util.ArrayList;
@@ -32,7 +29,7 @@ public class NF1 implements NormalForm{
                 reasons.add("kyes have duplicate values");
             }
         }
-        catch(Exception e){}
+        catch(Exception e){e.printStackTrace();}
 
         if(!success) {
             String error = String.join(",", reasons);

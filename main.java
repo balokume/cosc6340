@@ -1,6 +1,3 @@
-/**
- * Created by Luming Ma on 2/19/2017.
- */
 
 import java.util.ArrayList;
 import java.util.Properties;
@@ -23,6 +20,10 @@ public class main {
 
         // parse input file
         String inputFile = argv[1];
+        int idx = inputFile.indexOf("database=");
+        if(idx >= 0)
+            inputFile = inputFile.substring(idx + 9);
+
         ArrayList<Properties> tableProps = IOutils.parseInput(inputFile);
 
         // setup database connection

@@ -1,3 +1,1 @@
-R(K1(k),K2(k),A,B)
-S(K1(k),A)
-T(K1(k),K2(k),A)
+info(id(k),sub(k),age)
