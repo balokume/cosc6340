@@ -3,8 +3,12 @@ import java.util.ArrayList;
 
 public class SQLwrapper {
 
-    public static final String PUBLIC_SCHEMA = "public.";
-    public static final String PRIVATE_SCHEMA = "team01schema.";
+//    // go to public shcema
+//    public static final String PUBLIC_SCHEMA = "";
+//    public static final String PRIVATE_SCHEMA = "team01schema.";
+    // go to private shcema
+    public static final String PUBLIC_SCHEMA = "team01schema.";
+    public static final String PRIVATE_SCHEMA = "";
 
     public static String checkTable(String tableName){
 //		String query = "SELECT COUNT(*) FROM " + tableName;
