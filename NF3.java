@@ -35,7 +35,8 @@ public class NF3 extends NF2{
                             int count = db.queryCount(sqlDepend);
                             if (count == 0) {
                                 success = false;
-                                String X = String.join(",", subAttrs);
+//                                String X = String.join(",", subAttrs);
+                                String X = StrUtils.join(subAttrs);
                                 reasons.add(X + "->" + attr);
 
                                 // chech if a dependency already exist with the same key
@@ -66,8 +67,9 @@ public class NF3 extends NF2{
         }
 
         if(!success) {
-            String error = String.join(",", reasons);
-            IOutils.outputNF(tableName + "\t\tN\teNF\t\t" + error);
+//            String error = String.join(",", reasons);
+            String error = StrUtils.join(reasons);
+            IOutils.outputNF(tableName + "\t\t\tN\t\t3NF\t\t" + error);
 
             if(decomp)
                 super.decomposite(props, db);

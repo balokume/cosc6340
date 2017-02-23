@@ -34,7 +34,8 @@ public class NF2 extends NF1{
                             int count = db.queryCount(sqlDepend);
                             if (count == 0) {
                                 success = false;
-                                String X = String.join(",", subKeys);
+                                //String X = String.join(",", subKeys);
+                                String X = StrUtils.join(subKeys);
                                 reasons.add(X + "->" + attr);
 
                                 // chech if a dependency already exist with the same key
@@ -64,8 +65,9 @@ public class NF2 extends NF1{
             catch (Exception e){e.printStackTrace();}
         }
         if(!success) {
-            String error = String.join(",", reasons);
-            IOutils.outputNF(tableName + "\t\tN\t2NF\t\t" + error);
+//            String error = String.join(",", reasons);
+            String error = StrUtils.join(reasons);
+            IOutils.outputNF(tableName + "\t\t\tN\t\t2NF\t\t" + error);
 
             if(decomp)
                 decomposite(props, db);
@@ -115,10 +117,13 @@ public class NF2 extends NF1{
             db.executeUpdate(sqlCreateRemainTable);
 
             // output decomposition
-            IOutils.outputDecomposition(remainTableName + "(" + String.join(",", remainAttrs) + ")");
+            //IOutils.outputDecomposition(remainTableName + "(" + String.join(",", remainAttrs) + ")");
+            IOutils.outputDecomposition(remainTableName + "(" + StrUtils.join(remainAttrs) + ")");
             for(Properties dp : newTableProps)
-                IOutils.outputDecomposition(dp.getProperty("tableName") + "(" + String.join(",", (ArrayList<String>)dp.get("keyAttrs"))
-                        + "," + String.join(",", (ArrayList<String>)dp.get("nonKeyAttrs")) + ")");
+//                IOutils.outputDecomposition(dp.getProperty("tableName") + "(" + String.join(",", (ArrayList<String>)dp.get("keyAttrs"))
+//                        + "," + String.join(",", (ArrayList<String>)dp.get("nonKeyAttrs")) + ")");
+                IOutils.outputDecomposition(dp.getProperty("tableName") + "(" + StrUtils.join((ArrayList<String>)dp.get("keyAttrs"))
+                        + "," + StrUtils.join((ArrayList<String>)dp.get("nonKeyAttrs")) + ")");
 
             // joint tables
             db.jointTables(tableName, remainTableName, newTableProps);

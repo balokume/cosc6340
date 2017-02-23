@@ -32,8 +32,9 @@ public class NF1 implements NormalForm{
         catch(Exception e){e.printStackTrace();}
 
         if(!success) {
-            String error = String.join(",", reasons);
-            IOutils.outputNF(tableName + "\t\tN\t1NF\t\t" + error);
+//            String error = String.join(",", reasons);
+            String error = StrUtils.join(reasons);
+            IOutils.outputNF(tableName + "\t\t\tN\t\t1NF\t\t" + error);
         }
 
         return success;
